@@ -1,0 +1,28 @@
+{
+  "name": "friendfinder",
+  "version": "1.0.0",
+  "description": "Finding a friend app",
+  "main": "apiRoutes.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnitaMcFarland/FriendFinder.git"
+  },
+  "keywords": [
+    "friends"
+  ],
+  "author": "Anita McFarland",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnitaMcFarland/FriendFinder/issues"
+  },
+  "homepage": "https://github.com/AnitaMcFarland/FriendFinder#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-routing-app": "0.0.2",
+    "path": "^0.12.7"
+  }
+}
