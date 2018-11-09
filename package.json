@@ -23,6 +23,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "express-routing-app": "0.0.2",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "routing-api": "^2.0.0"
   }
 }
