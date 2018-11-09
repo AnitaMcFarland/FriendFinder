@@ -26,6 +26,14 @@ FriendFinder
 
 3. The total difference will be calculated and the closest match will be used to find a friend.
 
+**Example:
+
+User 1: [5, 1, 4, 4, 5, 1, 2, 5, 4, 1]
+
+User 2: [3, 2, 6, 4, 5, 1, 2, 5, 4, 1]
+
+Total Difference: 2 + 1 + 2 = 5
+
 **Technologies used:**
 >apis  
 >express  
