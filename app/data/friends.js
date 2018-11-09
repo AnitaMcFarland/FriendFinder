@@ -1,79 +1,64 @@
 
- var config = {
-    ".chosen-select": {},
-    ".chosen-select-deselect": {
-      allow_single_deselect: true
-    },
-    ".chosen-select-no-single": {
-      disable_search_threshold: 10
-    },
-    ".chosen-select-no-results": {
-      no_results_text: "Oops, nothing found!"
-    },
-    ".chosen-select-width": {
-      width: "95%"
-    }
-  };
-
-  for (var selector in config) {
-    $(selector).chosen(config[selector]);
-  }
-
-  // Capture the form inputs
-  $("#submit").on("click", function(event) {
-    event.preventDefault();
-
-    // Form validation
-    function validateForm() {
-      var isValid = true;
-      $(".form-control").each(function() {
-        if ($(this).val() === "") {
-          isValid = false;
-        }
-      });
-
-      $(".chosen-select").each(function() {
-
-        if ($(this).val() === "") {
-          isValid = false;
-        }
-      });
-      return isValid;
-    }
-
-    // If all required fields are filled
-    if (validateForm()) {
-      // Create an object for the user"s data
-      var userData = {
-        name: $("#name").val(),
-        photo: $("#photo").val(),
-        scores: [
-          $("#q1").val(),
-          $("#q2").val(),
-          $("#q3").val(),
-          $("#q4").val(),
-          $("#q5").val(),
-          $("#q6").val(),
-          $("#q7").val(),
-          $("#q8").val(),
-          $("#q9").val(),
-          $("#q10").val()
-        ]
-      };
-
-      // AJAX post the data to the friends API.
-      $.post("/api/friends", userData, function(data) {
-
-        // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-        $("#match-name").text(data.name);
-        $("#match-img").attr("src", data.photo);
-
-        // Show the modal with the best match
-        $("#results-modal").modal("toggle");
-
-      });
-    } else {
-      alert("Please fill out all fields before submitting!");
-    }
-  });
-
+ 
+     
+      
+      // Note how we export the array. This makes it accessible to other files using require.
+      module.exports = friendsArray;var friendsArray=[
+        {
+        "name": "Jacob Dark",
+        "photo": "https://pbs.twimg.com/profile_images/691785039043022849/oWsy8LNR.jpg",
+        "scores": [
+        "4",
+        "2",
+        "3",
+        "1",
+        "3",
+        "2",
+        "2",
+        "1",
+        "3",
+        "3"
+        
+        ]},
+        
+        
+        {
+            "name": "John Strange",
+            "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&h=350",
+            "scores": [
+            "3",
+            "2",
+            "1",
+            "1",
+            "3",
+            "2",
+            "2",
+            "2",
+            "2",
+            "2"
+            
+            ]
+            },
+            {
+                "name": "Jay Smart",
+                "photo": "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&h=350",
+                "scores": [
+                "2",
+                "1",
+                "3",
+                "2",
+                "3",
+                "2",
+                "2",
+                "2",
+                "1",
+                "1"
+                
+                ]
+                }
+        ];
+        
+             
+              
+              // Note how we export the array. This makes it accessible to other files using require.
+              module.exports = friendsArray;
