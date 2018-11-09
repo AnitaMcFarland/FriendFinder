@@ -1,78 +1,45 @@
 
- var config = {
-    ".chosen-select": {},
-    ".chosen-select-deselect": {
-      allow_single_deselect: true
-    },
-    ".chosen-select-no-single": {
-      disable_search_threshold: 10
-    },
-    ".chosen-select-no-results": {
-      no_results_text: "Oops, nothing found!"
-    },
-    ".chosen-select-width": {
-      width: "95%"
-    }
-  };
+var friends = require("../data/friends");
 
-  for (var selector in config) {
-    $(selector).chosen(config[selector]);
-  }
+module.exports = function(app) {
 
-  // Capture the form inputs
-  $("#submit").on("click", function(event) {
-    event.preventDefault();
-
-    // Form validation
-    function validateForm() {
-      var isValid = true;
-      $(".form-control").each(function() {
-        if ($(this).val() === "") {
-          isValid = false;
-        }
-      });
-
-      $(".chosen-select").each(function() {
-
-        if ($(this).val() === "") {
-          isValid = false;
-        }
-      });
-      return isValid;
-    }
-
-    // If all required fields are filled
-    if (validateForm()) {
-      // Create an object for the user"s data
-      var userData = {
-        name: $("#name").val(),
-        photo: $("#photo").val(),
-        scores: [
-          $("#q1").val(),
-          $("#q2").val(),
-          $("#q3").val(),
-          $("#q4").val(),
-          $("#q5").val(),
-          $("#q6").val(),
-          $("#q7").val(),
-          $("#q8").val(),
-          $("#q9").val(),
-          $("#q10").val()
-        ]
-      };
-
-      // AJAX post the data to the friends API.
-      $.post("/api/friends", userData, function(data) {
-
-        // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-        $("#match-name").text(data.name);
-        $("#match-img").attr("src", data.photo);
-
-        // Show the modal with the best match
-        $("#results-modal").modal("toggle");
-
-      });
-    } else {
-      alert("Please fill out all fields before submitting!");
-    }
+  app.get("/api/friends", function(req, res) {
+    res.json(friends);
   });
+
+  app.post("/api/friends", function(req, res) {
+
+    var bestMatch = {
+      name: "",
+      photo: "",
+      friendDifference: Infinity
+    };
+
+    var userData = req.body;
+    var userScores = userData.scores;
+
+    var totalDifference;
+
+    for (var i = 0; i < friends.length; i++) {
+      var currentFriend = friends[i];
+      totalDifference = 0;
+
+      console.log(currentFriend.name);
+
+      for (var j = 0; j < currentFriend.scores.length; j++) {
+        var currentFriendScore = currentFriend.scores[j];
+        var currentUserScore = userScores[j];
+
+        totalDifference += Math.abs(parseInt(currentUserScore) - parseInt(currentFriendScore));
+      }
+      if (totalDifference <= bestMatch.friendDifference) {
+        bestMatch.name = currentFriend.name;
+        bestMatch.photo = currentFriend.photo;
+        bestMatch.friendDifference = totalDifference;
+      }
+    }
+
+    friends.push(userData);
+    res.json(bestMatch);
+  });
+};

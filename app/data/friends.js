@@ -3,7 +3,7 @@
      
       
       // Note how we export the array. This makes it accessible to other files using require.
-      module.exports = friendsArray;var friendsArray=[
+    var friends=[
         {
         "name": "Jacob Dark",
         "photo": "https://pbs.twimg.com/profile_images/691785039043022849/oWsy8LNR.jpg",
@@ -61,4 +61,4 @@
              
               
               // Note how we export the array. This makes it accessible to other files using require.
-              module.exports = friendsArray;
+              module.exports = friends;
