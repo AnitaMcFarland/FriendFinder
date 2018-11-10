@@ -4,7 +4,7 @@
 
  var app = express();
 
- var PORT = process.env.PORT || 8080;
+ var PORT = process.env.PORT || 3000;
 
  app.use(bodyParser.urlencoded({ extended: true }));
  app.use(bodyParser.json());
@@ -15,6 +15,6 @@
  require("./app/routing/htmlRoutes")(app);
 
  app.listen(PORT, function () {
-   console.log("Friend Finder app is listening on port: https://localhost:" + PORT);
+   console.log("Friend Finder app is listening on port: http://localhost:" + PORT);
   
  });
